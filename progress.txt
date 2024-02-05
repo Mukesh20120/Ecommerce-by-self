@@ -1,0 +1,8 @@
+1.create a folder inside it
+ --frontend by react js
+ --backend 
+2.initialized the git in main folder and remove git from frontend
+  --add gitignore file in main and add node module to ignore and .env file to ignore
+3.create header and footer component using basic html and bootstrap css
+4.react router dom using to navigate to screens
+  --instead of anchor tag using link
