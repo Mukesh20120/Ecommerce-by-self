@@ -7,7 +7,7 @@ export default function App() {
   return (
     <>
       <Header />
-      <main className="py-3">
+      <main className="py-3" style={{minHeight: '80vh'}}>
         <div className="container">
           <Outlet />
         </div>

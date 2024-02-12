@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Rating from "../components/Rating";
 import { useGetProductDetailsQuery } from "../slices/productsApiSlice";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../slices/cartSlice";
 
 export default function ProductScreen() {
+  const dispatch = useDispatch();
   const { id: productId } = useParams();
   const { data, isLoading, error } = useGetProductDetailsQuery(productId);
   console.log(data);
   const productData = data || undefined;
-
+  const [qty, setQty] = useState(1);
   const product = {
     name: productData?.name || "",
     image: productData?.image || "/images/airpods.jpg",
@@ -17,6 +20,11 @@ export default function ProductScreen() {
     countInStock: productData?.countInStock || 0,
     price: productData?.price || 0,
   };
+
+  const handleAddToCart = () => {
+    const item = {...productData,qty};
+    dispatch(addToCart({item}));
+  }
 
   return (
     <>
@@ -59,13 +67,26 @@ export default function ProductScreen() {
                   {product.countInStock === 0 ? "Out Stock" : "In Stock"}
                 </strong>
               </div>
-              <div className="mt-2">
+              <div className="mt-2 d-flex flex-row gap-2 align-items-center ">
                 <button
-                  className="btn btn-dark"
+                  className="btn btn-dark flex-1"
                   disabled={product.countInStock === 0}
+                  onClick={handleAddToCart}
                 >
                   Add Cart
                 </button>
+                <div className="flex-1">
+                  <select
+                    name="qty"
+                    defaultValue={1}
+                    onChange={(e) => {setQty(Number(e.target.value));
+                    console.log(qty)}}
+                  >
+                    {[...Array(product.countInStock).keys()].map((i) => (
+                      <option value={i + 1}>{i + 1}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
             </div>
           </div>
