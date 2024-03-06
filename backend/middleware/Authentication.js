@@ -5,11 +5,11 @@ const {User} = require('../models')
 const customApiError = require('../errors')
 
 const protected = asyncWrapper(async(req,res,next) => {
-  let token = req.cookie;
-  console.log(token);
-  if(!token){
+  const authHeader = req.headers.authorization;
+  if(!authHeader){
     throw new customApiError.NotFoundError('Token not found please provide token');
   }
+  const token = authHeader.split(' ')[1];
   const {userId} = jwt.verify(token,process.env.JWT_SECRET);
   const user = await User.findById(userId).select('-password')
   req.user = user;

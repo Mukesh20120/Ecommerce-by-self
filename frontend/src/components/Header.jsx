@@ -21,9 +21,9 @@ export default function Header() {
 
   const handleLogout = async() =>{
     try{
-     const res = await logout().unwrap();
-     dispatch(logOut());
+      await logout();
      navigate('/login');
+     dispatch(logOut());
     }catch(error){
       console.log(error);
     }
