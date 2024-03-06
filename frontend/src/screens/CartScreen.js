@@ -1,11 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import CartItem from "../components/CartItem";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function CartScreen() {
   const cartData = useSelector((state) => state.cartSlice);
   const { cartItems } = cartData;
+  const navigate = useNavigate();
   console.log(cartData);
   return (
     <>
@@ -43,7 +44,8 @@ export default function CartScreen() {
               <div>
                 <h5>Total Amount ${cartData?.totalPrice || ""}</h5>
               </div>
-              <button className="btn btn-dark flex-1">
+              <button className="btn btn-dark flex-1"
+              onClick={()=>{navigate('/login?redirect=/shipping')}}>
                 Proceed to checkout
               </button>
             </div>

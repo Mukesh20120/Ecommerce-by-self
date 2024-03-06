@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
+const xss = require('xss-clean');
 const connectDB = require('./db/connect')
 const cookieParser = require('cookie-parser')
 require('dotenv').config();
@@ -15,11 +17,13 @@ const errorHandlerMiddleware = require('./middleware/ErrorHandlerMiddleware');
 const port = process.env.PORT || 4000
 
 const app = express();
-
+app.set('trust proxy', 1);
+app.use(helmet());
+app.use(xss());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(cookieParser());
-app.use(cors());
+app.use(cookieParser(process.env.JWT_SECRET));
+app.use(cors({credentials: true}));
 
 app.use('/api/v1/product',productRouter);
 app.use('/api/v1/user',userRouter);

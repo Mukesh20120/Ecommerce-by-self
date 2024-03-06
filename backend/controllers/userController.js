@@ -7,13 +7,22 @@ const generateToken = require('../utils/generateToken')
 require('dotenv').config();
 
 const authUser = asyncWrapper(async(req, res) => {
-    const {email,password} = req.body;
-    const user = await User.findOne({email});
-    if(!user || !(await user.comparePassword(password))){
-    throw new customApiError.UnauthorizedError('please register your email')
-    }
-    generateToken(res,user._id);
-    res.status(200).json({_id: user._id,name: user.name,email: user.email});
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (user && (await user.matchPassword(password))) {
+    generateToken({res,userId: user._id});
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    });
+  } else {
+    res.status(401);
+    throw new Error('Invalid email or password');
+  }
 });
 const registerUser = asyncWrapper(async(req, res) => {
   const {name,email,password} = req.body;
@@ -22,11 +31,17 @@ const registerUser = asyncWrapper(async(req, res) => {
     throw new customApiError.NotFoundError('This email already registered');
   }
   const user = await User.create({name,email,password});
-  generateToken(res,user._id);
+  generateToken({res,userId: user._id});
   res.status(200).json({name: user.name,email: user.email,role: user.isAdmin});
 });
 const logoutUser = asyncWrapper((req, res) => {
-  res.clearCookies('jwt');
+  res.cookie('jwt', '', {
+    httpOnly: true,
+    secure: true, // Use secure cookies in production
+    sameSite: 'None', // Prevent CSRF attacks
+    maxAge:  Date.now() 
+  });
+  // res.setHeader('Set-Cookie', `jwt=; HttpOnly`);
   res.status(200).send('log out successfully');
 });
 const getUserProfile = asyncWrapper(async(req, res) => {

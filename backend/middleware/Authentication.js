@@ -5,7 +5,8 @@ const {User} = require('../models')
 const customApiError = require('../errors')
 
 const protected = asyncWrapper(async(req,res,next) => {
-  let token = req.cookies.jwt;
+  let token = req.cookie;
+  console.log(token);
   if(!token){
     throw new customApiError.NotFoundError('Token not found please provide token');
   }
