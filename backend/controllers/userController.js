@@ -35,7 +35,7 @@ const registerUser = asyncWrapper(async(req, res) => {
   res.status(200).json({name: user.name,email: user.email,role: user.isAdmin,token});
 });
 const logoutUser = asyncWrapper((req, res) => {
-  res.status(200).send('log out successfully');
+  res.status(200).json({message: "log out successfully"});
 });
 const getUserProfile = asyncWrapper(async(req, res) => {
   const {_id: userId} = req.user;

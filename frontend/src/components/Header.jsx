@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { useLogoutMutation } from "../slices/userApiSlice";
 import { logOut } from "../slices/authSlice";
+import { toast } from "react-toastify";
 
 
 export default function Header() {
@@ -21,11 +22,12 @@ export default function Header() {
 
   const handleLogout = async() =>{
     try{
-      await logout();
+     const res = await logout().unwrap();
+     toast.success(res.message);
      navigate('/login');
      dispatch(logOut());
     }catch(error){
-      console.log(error);
+     toast.error(error.message);
     }
   }
 
