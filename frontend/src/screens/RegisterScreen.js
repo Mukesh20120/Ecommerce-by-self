@@ -1,21 +1,46 @@
 import React, { useState } from "react";
 import FormContainer from "../components/FormContainer";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useRegisterMutation } from "../slices/userApiSlice";
+import { useDispatch } from "react-redux";
+import { setAuthCredentials } from "../slices/authSlice";
+import { toast } from 'react-toastify';
 
 export default function RegisterScreen() {
+
   const [userData, setUserData] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
+
   const handleOnChange = (e) => {
     setUserData({...userData,[e.target.name]: e.target.value})
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("submit",userData);
+  
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [register] = useRegisterMutation();
+
+  const {search} = useLocation();
+  const sp = new URLSearchParams(search);
+  const redirect = sp.get('redirect') || '/'
+
+
+  const handleSubmit = async(e) => {
+    try{
+      e.preventDefault();
+      console.log("submit",userData);
+      const res = await register(userData).unwrap();
+      dispatch(setAuthCredentials({...res}));
+      navigate(redirect);
+    }
+    catch(error){
+      toast.error(error?.data?.msg || 'Invalid credentials');
+    }
   };
+
   return (
     <FormContainer>
       <h2>Register</h2>

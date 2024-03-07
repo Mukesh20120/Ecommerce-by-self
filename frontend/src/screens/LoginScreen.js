@@ -40,7 +40,6 @@ export default function LoginScreen() {
       navigate(redirect);
     }
     catch(error){
-      console.log(error.data.msg);
       toast.error(error?.data?.msg || 'Invalid credentials');
     }
   };
