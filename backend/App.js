@@ -9,6 +9,7 @@ require('dotenv').config();
 //router
 const productRouter = require('./routers/productRouter');
 const userRouter = require('./routers/userRouter');
+const orderRouter = require('./routers/orderRouter');
 
 //middleware and controller
 const NotFound = require('./middleware/NotFound');
@@ -27,6 +28,7 @@ app.use(cors({credentials: true}));
 
 app.use('/api/v1/product',productRouter);
 app.use('/api/v1/user',userRouter);
+app.use('/api/v1/order',orderRouter);
 
 app.use(NotFound);
 app.use(errorHandlerMiddleware);
