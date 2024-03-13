@@ -13,6 +13,7 @@ import RegisterScreen from './screens/RegisterScreen';
 import ShippingScreen from './screens/ShippingScreen';
 import PaymentScreen from './screens/PaymentScreen';
 import PrivateRoute from './components/PrivateRoute';
+import OrderScreen from './screens/OrderScreen';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const Router = createBrowserRouter(createRoutesFromElements(
@@ -25,6 +26,7 @@ const Router = createBrowserRouter(createRoutesFromElements(
     <Route path='' element={<PrivateRoute/>}>
     <Route path='/shipping' element={<ShippingScreen/>}/>
     <Route path='/payment' element={<PaymentScreen/>}/>
+    <Route path='/order' element={<OrderScreen/>}/>
     </Route>
   </Route>
 ))
