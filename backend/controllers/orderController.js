@@ -1,6 +1,7 @@
 const asyncWrapper = require("../middleware/AsyncWrapper");
 const customError = require('../errors');
 const {Product,Order} = require('../models');
+const calcPrices = require('../utils/calPrices')
 
 const addOrderItems = asyncWrapper(async (req, res) => {
   const {orderItems,shippingAddress,paymentMethod} = req.body;
