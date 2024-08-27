@@ -3,7 +3,8 @@ const cors = require('cors');
 const helmet = require('helmet');
 const xss = require('xss-clean');
 const connectDB = require('./db/connect')
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
+const path = require('path')
 require('dotenv').config();
 
 //router
@@ -29,6 +30,16 @@ app.use(cors({credentials: true}));
 app.use('/api/v1/product',productRouter);
 app.use('/api/v1/user',userRouter);
 app.use('/api/v1/order',orderRouter);
+
+if(process.env.NODE_ENV === "production"){
+  app.use(express.static(path.join(__dirname,'../frontend/build')));
+  app.use("*",(req,res)=>{
+    res.sendFile(path.join(__dirname,'../frontend','build','index.html'));
+  })
+}
+else{
+    app.use('/',(req,res)=>res.send('Api is running...'))
+}
 
 app.use(NotFound);
 app.use(errorHandlerMiddleware);
