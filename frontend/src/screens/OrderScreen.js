@@ -1,7 +1,9 @@
 import React from 'react'
 
-export default function OrderScreen() {
+function OrderScreen() {
   return (
     <div>OrderScreen</div>
   )
 }
+
+export default OrderScreen
