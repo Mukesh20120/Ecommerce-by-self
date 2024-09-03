@@ -38,6 +38,15 @@ export default function PlaceOrderScreen() {
       }
   }
   return (
+    <>
+    {isLoading ? (
+      <>
+        <p>loading...</p>
+      </>
+    ) : isError ? (
+      <>{isError.message}</>
+    ) : (
+      <>
     <div className=" container ">
       <div className="row">
         <div className="col-8">
@@ -111,5 +120,8 @@ export default function PlaceOrderScreen() {
         </div>
       </div>
     </div>
+    </>
+      )}
+    </>
   );
 }
