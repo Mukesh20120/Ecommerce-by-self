@@ -13,7 +13,7 @@ export default function Product({ product }) {
         />
       </Link>
       <div className="card-body">
-        <Link to={`/product/${product._id}`} style={{textDecoration: 'none'}}>
+        <Link to={`/product/${product._id}`} style={{ textDecoration: "none" }}>
           <h5
             className="card-title text-dark"
             style={{
@@ -27,7 +27,7 @@ export default function Product({ product }) {
         </Link>
         <div>
           <Rating rating={product.rating} text={product.numReviews} />
-          <p className="card-text fw-bolder fs-4">${product.price}</p>
+          <p className="card-text fw-bolder fs-4">₹ {product.price}</p>
         </div>
       </div>
     </div>

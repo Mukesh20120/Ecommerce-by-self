@@ -54,12 +54,12 @@ export default function ProductScreen() {
               <div className="py-4">
                 <Rating rating={product.rating} text={product.numReviews} />
               </div>
-              <h4 className="my-3">Price ${product.price}</h4>
+              <h4 className="my-3">Price ₹{product.price}</h4>
             </div>
             <div className="col-3 ">
               <div className="d-flex gap-3">
                 <span>Price :</span>
-                <strong>${product.price}</strong>
+                <strong>₹{product.price}</strong>
               </div>
               <div className="d-flex gap-3">
                 <span>In Stock :</span>

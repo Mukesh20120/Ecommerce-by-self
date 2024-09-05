@@ -96,23 +96,22 @@ export default function PlaceOrderScreen() {
               <tr>
                 <td>Item</td>
                 <td>
-                  ${cart?.itemPrice !== undefined ? cart.itemPrice : "0.00"}
+                ₹{cart?.itemPrice !== undefined ? cart.itemPrice : "0.00"}
                 </td>
               </tr>
               <tr>
                 <td>Shipping</td>
                 <td>
-                  $
-                  {cart?.shippingPrice !== undefined ? cart.shippingPrice : 0.0}
+                ₹{cart?.shippingPrice !== undefined ? cart.shippingPrice : 0.0}
                 </td>
               </tr>
               <tr>
                 <td>Tax</td>
-                <td>${cart.taxPrice}</td>
+                <td>₹{cart.taxPrice}</td>
               </tr>
               <tr>
                 <td>Total</td>
-                <td>${cart.totalPrice}</td>
+                <td>₹{cart.totalPrice}</td>
               </tr>
             </tbody>
           </table>

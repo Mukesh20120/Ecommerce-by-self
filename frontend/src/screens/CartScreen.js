@@ -42,7 +42,7 @@ export default function CartScreen() {
                 </h3>
               </div>
               <div>
-                <h5>Total Amount ${cartData?.totalPrice || ""}</h5>
+                <h5>Total Amount ₹{cartData?.totalPrice || ""}</h5>
               </div>
               <button className="btn btn-dark flex-1"
               onClick={()=>{navigate('/login?redirect=/shipping')}}>

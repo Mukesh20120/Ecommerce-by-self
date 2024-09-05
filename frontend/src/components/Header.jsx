@@ -39,7 +39,7 @@ export default function Header() {
       >
         <GiCrossMark size={40} aria-label="Logo" />
         <h1 className="text-decoration-underline text-uppercase fw-bolder">
-          Logo
+          Shoplicity
         </h1>
       </Link>
       <div className="d-flex gap-3">

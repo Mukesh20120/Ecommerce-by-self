@@ -28,7 +28,7 @@ export default function CartItem({ product }) {
         <h5>{product?.name || ""}</h5>
       </div>
       <div>
-        <span>${product?.price || ""}</span>
+        <span>₹{product?.price || ""}</span>
       </div>
       <div className="flex-1">
         <select
